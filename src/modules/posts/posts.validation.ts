@@ -10,6 +10,12 @@ const createPost = z.object({
     transileration: z.string().optional(),
     translation: z.string().optional(),
     audio: z.string().optional(),
+    cat_id: z.string({
+      required_error: "category is required",
+    }),
+    subcat_id: z.string({
+      required_error: "subcategory is required",
+    }),
   }),
 });
 
