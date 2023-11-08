@@ -2,6 +2,9 @@ import { z } from "zod";
 
 const createSubCategory = z.object({
   body: z.object({
+    cat_id: z.string({
+      required_error: "cat_id is required",
+    }),
     title: z.string({
       required_error: "Name is required",
     }),
