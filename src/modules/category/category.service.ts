@@ -45,6 +45,7 @@ const getAllCategory = async (queryData: Partial<IQueryData>) => {
   }
 
   const result = await CategoryModel.find(query)
+    .populate("subcat_id")
     .sort(sortCondition)
     .skip(pagination.skip)
     .limit(pagination.limit);
