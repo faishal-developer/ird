@@ -10,12 +10,13 @@ import { CategoryModel } from "../category/category.model";
 const createSubCategory = async (
   newSubCategory: ISubCategory
 ): Promise<ISubCategory | null> => {
+  if (newSubCategory.cat_id) {
+    throw new ApiError(404, "Category not selected");
+  }
   const SubCategory = await SubCategoryModel.findOne({
     title: newSubCategory.title,
   });
-  if (SubCategory) {
-    throw new ApiError(409, "Subcategory already exist");
-  }
+
   const result = await SubCategoryModel.create(newSubCategory);
 
   await CategoryModel.findOneAndUpdate(
@@ -61,7 +62,7 @@ const getAllSubCategory = async (queryData: Partial<IQueryData>) => {
 const getSingleSubCategory = async (
   id: string
 ): Promise<ISubCategory | null> => {
-  const result = await SubCategoryModel.findById({ _id: id });
+  const result = await SubCategoryModel.findById({ _id: id }).populate("posts");
   return result;
 };
 

@@ -61,7 +61,9 @@ const getAllCategory = async (queryData: Partial<IQueryData>) => {
 };
 
 const getSingleCategory = async (id: string): Promise<ICategory | null> => {
-  const result = await CategoryModel.findById({ _id: id });
+  const result = await CategoryModel.findById({ _id: id }).populate(
+    "subcat_id"
+  );
   return result;
 };
 

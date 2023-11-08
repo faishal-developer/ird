@@ -9,6 +9,9 @@ import { CategoryModel } from "../category/category.model";
 import { SubCategoryModel } from "../subCategory/subCategory.model";
 
 const createPost = async (newPost: IPost): Promise<IPost | null> => {
+  if (!newPost.subcat_id || !newPost.cat_id) {
+    throw new ApiError(404, "subcat and cat must be selected");
+  }
   const result = await PostModel.create(newPost);
 
   await CategoryModel.findOneAndUpdate(
