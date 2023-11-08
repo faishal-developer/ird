@@ -12,13 +12,13 @@ router.post(
 );
 
 router.get("/posts/:id", PostsController.getSinglePost);
-router.post("/posts/delete", PostsController.deletePost);
+router.delete("/posts/:id", PostsController.deletePost);
 router.patch(
   "/posts/:id",
   validateRequest(PostsZodValidataion.updatePost),
   PostsController.updatePost
 );
 
-router.get("/posts", PostsController.getAllPosts);
+router.post("/posts", PostsController.getAllPosts);
 
 export const PostRoutes = router;

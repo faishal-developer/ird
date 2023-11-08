@@ -22,8 +22,8 @@ const createSubCategory = catchAsync(
 
 const getAllSubCategorys = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const queryData = req.query;
-    const result = await SubCategoryService.getAllSubCategory(queryData);
+    const bodyData = req.body;
+    const result = await SubCategoryService.getAllSubCategory(bodyData);
 
     sendResponse(res, {
       statusCode: 200,
@@ -71,7 +71,9 @@ const updateSubCategory = catchAsync(
 
 const deleteSubCategory = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await SubCategoryService.deleteSubCategory(req.body);
+    const result = await SubCategoryService.deleteSubCategory({
+      id: req.params.id,
+    });
 
     sendResponse<ISubCategory>(res, {
       statusCode: httpStatus.OK,

@@ -7,9 +7,9 @@ const SubCategorySchema = new Schema<ISubCategory, object>(
       type: String,
       required: true,
     },
-    posts: {
-      type: [Schema.Types.ObjectId],
-      ref: "Post",
+    cat_id: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
     },
   },
   {

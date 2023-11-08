@@ -12,13 +12,13 @@ router.post(
 );
 
 router.get("/sub-categorys/:id", SubCategorysController.getSingleSubCategory);
-router.post("/sub-categorys/delete", SubCategorysController.deleteSubCategory);
+router.delete("/sub-categorys/:id", SubCategorysController.deleteSubCategory);
 router.patch(
   "/sub-categorys/:id",
   validateRequest(SubCategorysZodValidataion.updateSubCategory),
   SubCategorysController.updateSubCategory
 );
 
-router.get("/sub-categorys", SubCategorysController.getAllSubCategorys);
+router.post("/sub-categorys", SubCategorysController.getAllSubCategorys);
 
 export const SubCategoryRoutes = router;

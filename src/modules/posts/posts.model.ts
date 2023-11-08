@@ -22,6 +22,14 @@ const PostSchema = new Schema<IPost, object>(
     audio: {
       type: String,
     },
+    cat_id: {
+      type: Schema.ObjectId,
+      required: true,
+    },
+    subcat_id: {
+      type: Schema.ObjectId,
+      required: true,
+    },
   },
   {
     timestamps: true,

@@ -11,14 +11,6 @@ const CategorySchema = new Schema<ICategory, object>(
       type: String,
       required: true,
     },
-    subcat_id: {
-      type: [Schema.Types.ObjectId],
-      ref: "Subcat",
-    },
-    posts: {
-      type: [Schema.Types.ObjectId],
-      ref: "Post",
-    },
   },
   {
     timestamps: true,

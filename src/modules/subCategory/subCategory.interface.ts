@@ -1,9 +1,9 @@
 import { Model, Types } from "mongoose";
 
 export type ISubCategory = {
-  posts: Types.ObjectId[];
+  // posts: Types.ObjectId[];
   title: string;
-  cat_id?: string;
+  cat_id: Types.ObjectId;
 };
 
 export type ISubCategoryModel = Model<ISubCategory, Record<string, unknown>>;
@@ -15,4 +15,5 @@ export type IQueryData = {
   sortOrder?: string;
   location?: string;
   searchTerm?: string;
+  cat_id?: string;
 };

@@ -13,21 +13,6 @@ const createPost = async (newPost: IPost): Promise<IPost | null> => {
     throw new ApiError(404, "subcat and cat must be selected");
   }
   const result = await PostModel.create(newPost);
-
-  await CategoryModel.findOneAndUpdate(
-    { _id: newPost.cat_id },
-    { $push: { posts: result._id } },
-    {
-      new: true,
-    }
-  );
-  await SubCategoryModel.findOneAndUpdate(
-    { _id: newPost.subcat_id },
-    { $push: { posts: result._id } },
-    {
-      new: true,
-    }
-  );
   return result;
 };
 
@@ -37,7 +22,12 @@ const getAllPost = async (queryData: Partial<IQueryData>) => {
 
   //searching
   let query: any = {};
-
+  if (queryData.cat_id) {
+    query.cat_id = queryData.cat_id;
+  }
+  if (queryData.subcat_id) {
+    query.subcat_id = queryData.subcat_id;
+  }
   //sorting condition
   type TSort = "asc" | "desc";
   const sortCondition: { [key: string]: TSort } = {};
@@ -93,26 +83,8 @@ const updatePost = async (
   return result;
 };
 
-const deletePost = async ({
-  id,
-  cat_id,
-  subcat_id,
-}: {
-  id: string;
-  cat_id: string;
-  subcat_id: string;
-}): Promise<IPost | null> => {
+const deletePost = async ({ id }: { id: string }): Promise<IPost | null> => {
   const result = await PostModel.findByIdAndDelete({ _id: id });
-  await CategoryModel.findOneAndUpdate(
-    { _id: cat_id },
-    { $pull: { posts: id } },
-    { new: true } // This option returns the updated document
-  );
-  await SubCategoryModel.findOneAndUpdate(
-    { _id: subcat_id },
-    { $pull: { posts: id } },
-    { new: true } // This option returns the updated document
-  );
   return result;
 };
 

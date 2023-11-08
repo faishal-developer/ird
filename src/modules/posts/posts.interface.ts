@@ -7,8 +7,8 @@ export type IPost = {
   transileration: string;
   translation: string;
   audio: string;
-  cat_id?: string;
-  subcat_id?: string;
+  cat_id: Types.ObjectId;
+  subcat_id: Types.ObjectId;
 };
 
 export type IPostModel = Model<IPost, Record<string, unknown>>;
@@ -20,4 +20,6 @@ export type IQueryData = {
   sortOrder?: string;
   location?: string;
   searchTerm?: string;
+  cat_id?: string;
+  subcat_id?: string;
 };

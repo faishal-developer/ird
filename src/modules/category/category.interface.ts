@@ -1,8 +1,6 @@
 import { Model, Types } from "mongoose";
 
 export type ICategory = {
-  subcat_id: Types.ObjectId[];
-  posts: Types.ObjectId[];
   title: string;
   image: string;
 };

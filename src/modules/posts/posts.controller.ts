@@ -20,8 +20,8 @@ const createPost = catchAsync(
 
 const getAllPosts = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const queryData = req.query;
-    const result = await PostService.getAllPost(queryData);
+    const bodyData = req.body;
+    const result = await PostService.getAllPost(bodyData);
 
     sendResponse(res, {
       statusCode: 200,
@@ -66,7 +66,7 @@ const updatePost = catchAsync(
 
 const deletePost = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const result = await PostService.deletePost(req.body);
+    const result = await PostService.deletePost({ id: req.params.id });
 
     sendResponse<IPost>(res, {
       statusCode: httpStatus.OK,

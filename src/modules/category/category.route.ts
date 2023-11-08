@@ -19,6 +19,6 @@ router.patch(
   CategorysController.updateCategory
 );
 
-router.get("/categorys", CategorysController.getAllCategorys);
+router.post("/categorys", CategorysController.getAllCategorys);
 
 export const CategoryRoutes = router;

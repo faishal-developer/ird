@@ -45,7 +45,6 @@ const getAllCategory = async (queryData: Partial<IQueryData>) => {
   }
 
   const result = await CategoryModel.find(query)
-    .populate("subcat_id")
     .sort(sortCondition)
     .skip(pagination.skip)
     .limit(pagination.limit);
@@ -62,9 +61,7 @@ const getAllCategory = async (queryData: Partial<IQueryData>) => {
 };
 
 const getSingleCategory = async (id: string): Promise<ICategory | null> => {
-  const result = await CategoryModel.findById({ _id: id }).populate(
-    "subcat_id"
-  );
+  const result = await CategoryModel.findById({ _id: id });
   return result;
 };
 

@@ -8,7 +8,6 @@ const createSubCategory = z.object({
     title: z.string({
       required_error: "Name is required",
     }),
-    posts: z.array(z.string({ required_error: "Seller is required" })),
   }),
 });
 

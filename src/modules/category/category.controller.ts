@@ -20,8 +20,8 @@ const createCategory = catchAsync(
 
 const getAllCategorys = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const queryData = req.query;
-    const result = await CategoryService.getAllCategory(queryData);
+    const bodyData = req.body;
+    const result = await CategoryService.getAllCategory(bodyData);
 
     sendResponse(res, {
       statusCode: 200,

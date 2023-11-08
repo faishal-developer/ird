@@ -10,7 +10,7 @@ import { CategoryModel } from "../category/category.model";
 const createSubCategory = async (
   newSubCategory: ISubCategory
 ): Promise<ISubCategory | null> => {
-  if (newSubCategory.cat_id) {
+  if (!newSubCategory.cat_id) {
     throw new ApiError(404, "Category not selected");
   }
   const SubCategory = await SubCategoryModel.findOne({
@@ -19,13 +19,6 @@ const createSubCategory = async (
 
   const result = await SubCategoryModel.create(newSubCategory);
 
-  await CategoryModel.findOneAndUpdate(
-    { _id: newSubCategory.cat_id },
-    { $push: { subcat_id: result._id } },
-    {
-      new: true,
-    }
-  );
   return result;
 };
 
@@ -36,6 +29,9 @@ const getAllSubCategory = async (queryData: Partial<IQueryData>) => {
   //searching
   let query: any = {};
 
+  if (queryData.cat_id) {
+    query.cat_id = queryData.cat_id;
+  }
   //sorting condition
   type TSort = "asc" | "desc";
   const sortCondition: { [key: string]: TSort } = {};
@@ -62,7 +58,7 @@ const getAllSubCategory = async (queryData: Partial<IQueryData>) => {
 const getSingleSubCategory = async (
   id: string
 ): Promise<ISubCategory | null> => {
-  const result = await SubCategoryModel.findById({ _id: id }).populate("posts");
+  const result = await SubCategoryModel.findById({ _id: id });
   return result;
 };
 
@@ -95,17 +91,11 @@ const updateSubCategory = async (
 
 const deleteSubCategory = async ({
   id,
-  cat_id,
 }: {
   id: string;
-  cat_id: string;
 }): Promise<ISubCategory | null> => {
   const result = await SubCategoryModel.findByIdAndDelete({ _id: id });
-  await CategoryModel.findOneAndUpdate(
-    { _id: cat_id },
-    { $pull: { posts: id } },
-    { new: true } // This option returns the updated document
-  );
+
   return result;
 };
 
