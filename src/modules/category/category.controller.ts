@@ -12,7 +12,7 @@ const createCategory = catchAsync(
     sendResponse(res, {
       statusCode: httpStatus.CREATED,
       success: true,
-      message: result?.title ? "Category created successfully" : "Failed",
+      message: result?.title ? "Category  created successfully" : "Failed",
       data: result,
     });
   }
