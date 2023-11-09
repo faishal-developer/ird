@@ -28,8 +28,8 @@ const createPost = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(vo
 }));
 const getAllPosts = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const queryData = req.query;
-    const result = yield posts_service_1.PostService.getAllPost(queryData);
+    const bodyData = req.body;
+    const result = yield posts_service_1.PostService.getAllPost(bodyData);
     (0, catchAsync_1.sendResponse)(res, {
         statusCode: 200,
         success: true,
@@ -62,7 +62,7 @@ const updatePost = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(vo
     });
 }));
 const deletePost = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield posts_service_1.PostService.deletePost(req.body);
+    const result = yield posts_service_1.PostService.deletePost({ id: req.params.id });
     (0, catchAsync_1.sendResponse)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

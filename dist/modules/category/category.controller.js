@@ -22,14 +22,14 @@ const createCategory = (0, catchAsync_1.catchAsync)((req, res, next) => __awaite
     (0, catchAsync_1.sendResponse)(res, {
         statusCode: http_status_1.default.CREATED,
         success: true,
-        message: (result === null || result === void 0 ? void 0 : result.title) ? "Category created successfully" : "Failed",
+        message: (result === null || result === void 0 ? void 0 : result.title) ? "Category  created successfully" : "Failed",
         data: result,
     });
 }));
 const getAllCategorys = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const queryData = req.query;
-    const result = yield category_service_1.CategoryService.getAllCategory(queryData);
+    const bodyData = req.body;
+    const result = yield category_service_1.CategoryService.getAllCategory(bodyData);
     (0, catchAsync_1.sendResponse)(res, {
         statusCode: 200,
         success: true,

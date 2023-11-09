@@ -18,18 +18,14 @@ const http_status_1 = __importDefault(require("http-status"));
 const subCategory_model_1 = require("./subCategory.model");
 const ApiError_1 = __importDefault(require("../../errorHandler/ApiError"));
 const commonFunction_1 = require("../../shared/commonFunction");
-const category_model_1 = require("../category/category.model");
 const createSubCategory = (newSubCategory) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!newSubCategory.cat_id) {
+        throw new ApiError_1.default(404, "Category not selected");
+    }
     const SubCategory = yield subCategory_model_1.SubCategoryModel.findOne({
         title: newSubCategory.title,
     });
-    if (SubCategory) {
-        throw new ApiError_1.default(409, "Subcategory already exist");
-    }
     const result = yield subCategory_model_1.SubCategoryModel.create(newSubCategory);
-    yield category_model_1.CategoryModel.findOneAndUpdate({ _id: newSubCategory.cat_id }, { $push: { subcat_id: result._id } }, {
-        new: true,
-    });
     return result;
 });
 const getAllSubCategory = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
@@ -38,6 +34,9 @@ const getAllSubCategory = (queryData) => __awaiter(void 0, void 0, void 0, funct
     const pagination = (0, commonFunction_1.calcSkip)(page, limit);
     //searching
     let query = {};
+    if (queryData.cat_id) {
+        query.cat_id = queryData.cat_id;
+    }
     const sortCondition = {};
     if (sortBy) {
         sortCondition[sortBy] = (_a = sortOrder) !== null && _a !== void 0 ? _a : "asc";
@@ -78,10 +77,8 @@ const updateSubCategory = (id, data) => __awaiter(void 0, void 0, void 0, functi
     });
     return result;
 });
-const deleteSubCategory = ({ id, cat_id, }) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteSubCategory = ({ id, }) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield subCategory_model_1.SubCategoryModel.findByIdAndDelete({ _id: id });
-    yield category_model_1.CategoryModel.findOneAndUpdate({ _id: cat_id }, { $pull: { posts: id } }, { new: true } // This option returns the updated document
-    );
     return result;
 });
 exports.SubCategoryService = {

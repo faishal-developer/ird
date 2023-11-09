@@ -22,6 +22,14 @@ const PostSchema = new mongoose_1.Schema({
     audio: {
         type: String,
     },
+    cat_id: {
+        type: mongoose_1.Schema.ObjectId,
+        required: true,
+    },
+    subcat_id: {
+        type: mongoose_1.Schema.ObjectId,
+        required: true,
+    },
 }, {
     timestamps: true,
     toJSON: {

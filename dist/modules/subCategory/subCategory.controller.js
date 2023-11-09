@@ -30,8 +30,8 @@ const createSubCategory = (0, catchAsync_1.catchAsync)((req, res, next) => __awa
 }));
 const getAllSubCategorys = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const queryData = req.query;
-    const result = yield subCategory_service_1.SubCategoryService.getAllSubCategory(queryData);
+    const bodyData = req.body;
+    const result = yield subCategory_service_1.SubCategoryService.getAllSubCategory(bodyData);
     (0, catchAsync_1.sendResponse)(res, {
         statusCode: 200,
         success: true,
@@ -66,7 +66,9 @@ const updateSubCategory = (0, catchAsync_1.catchAsync)((req, res, next) => __awa
     });
 }));
 const deleteSubCategory = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield subCategory_service_1.SubCategoryService.deleteSubCategory(req.body);
+    const result = yield subCategory_service_1.SubCategoryService.deleteSubCategory({
+        id: req.params.id,
+    });
     (0, catchAsync_1.sendResponse)(res, {
         statusCode: http_status_1.default.OK,
         success: true,

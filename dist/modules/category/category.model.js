@@ -11,14 +11,6 @@ const CategorySchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    subcat_id: {
-        type: [mongoose_1.Schema.Types.ObjectId],
-        ref: "Subcat",
-    },
-    posts: {
-        type: [mongoose_1.Schema.Types.ObjectId],
-        ref: "Post",
-    },
 }, {
     timestamps: true,
     toJSON: {

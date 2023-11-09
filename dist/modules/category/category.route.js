@@ -13,5 +13,5 @@ router.post("/categorys/create", (0, validateRequests_1.validateRequest)(categor
 router.get("/categorys/:id", category_controller_1.CategorysController.getSingleCategory);
 router.delete("/categorys/:id", category_controller_1.CategorysController.deleteCategory);
 router.patch("/categorys/:id", (0, validateRequests_1.validateRequest)(category_validation_1.CategorysZodValidataion.updateCategory), category_controller_1.CategorysController.updateCategory);
-router.get("/categorys", category_controller_1.CategorysController.getAllCategorys);
+router.post("/categorys", category_controller_1.CategorysController.getAllCategorys);
 exports.CategoryRoutes = router;

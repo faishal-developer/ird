@@ -12,6 +12,12 @@ const createPost = zod_1.z.object({
         transileration: zod_1.z.string().optional(),
         translation: zod_1.z.string().optional(),
         audio: zod_1.z.string().optional(),
+        cat_id: zod_1.z.string({
+            required_error: "category is required",
+        }),
+        subcat_id: zod_1.z.string({
+            required_error: "subcategory is required",
+        }),
     }),
 });
 const updatePost = zod_1.z.object({

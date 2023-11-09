@@ -18,16 +18,11 @@ const http_status_1 = __importDefault(require("http-status"));
 const posts_model_1 = require("./posts.model");
 const ApiError_1 = __importDefault(require("../../errorHandler/ApiError"));
 const commonFunction_1 = require("../../shared/commonFunction");
-const category_model_1 = require("../category/category.model");
-const subCategory_model_1 = require("../subCategory/subCategory.model");
 const createPost = (newPost) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!newPost.subcat_id || !newPost.cat_id) {
+        throw new ApiError_1.default(404, "subcat and cat must be selected");
+    }
     const result = yield posts_model_1.PostModel.create(newPost);
-    yield category_model_1.CategoryModel.findOneAndUpdate({ _id: newPost.cat_id }, { $push: { posts: result._id } }, {
-        new: true,
-    });
-    yield subCategory_model_1.SubCategoryModel.findOneAndUpdate({ _id: newPost.subcat_id }, { $push: { posts: result._id } }, {
-        new: true,
-    });
     return result;
 });
 const getAllPost = (queryData) => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,6 +31,12 @@ const getAllPost = (queryData) => __awaiter(void 0, void 0, void 0, function* ()
     const pagination = (0, commonFunction_1.calcSkip)(page, limit);
     //searching
     let query = {};
+    if (queryData.cat_id) {
+        query.cat_id = queryData.cat_id;
+    }
+    if (queryData.subcat_id) {
+        query.subcat_id = queryData.subcat_id;
+    }
     const sortCondition = {};
     if (sortBy) {
         sortCondition[sortBy] = (_a = sortOrder) !== null && _a !== void 0 ? _a : "asc";
@@ -76,12 +77,8 @@ const updatePost = (id, data) => __awaiter(void 0, void 0, void 0, function* () 
     });
     return result;
 });
-const deletePost = ({ id, cat_id, subcat_id, }) => __awaiter(void 0, void 0, void 0, function* () {
+const deletePost = ({ id }) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield posts_model_1.PostModel.findByIdAndDelete({ _id: id });
-    yield category_model_1.CategoryModel.findOneAndUpdate({ _id: cat_id }, { $pull: { posts: id } }, { new: true } // This option returns the updated document
-    );
-    yield subCategory_model_1.SubCategoryModel.findOneAndUpdate({ _id: subcat_id }, { $pull: { posts: id } }, { new: true } // This option returns the updated document
-    );
     return result;
 });
 exports.PostService = {

@@ -7,9 +7,9 @@ const SubCategorySchema = new mongoose_1.Schema({
         type: String,
         required: true,
     },
-    posts: {
-        type: [mongoose_1.Schema.Types.ObjectId],
-        ref: "Post",
+    cat_id: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "Category",
     },
 }, {
     timestamps: true,
@@ -17,4 +17,4 @@ const SubCategorySchema = new mongoose_1.Schema({
         virtuals: true,
     },
 });
-exports.SubCategoryModel = (0, mongoose_1.model)("SubCategory", SubCategorySchema);
+exports.SubCategoryModel = (0, mongoose_1.model)("Subcat", SubCategorySchema);
